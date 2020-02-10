@@ -12,6 +12,7 @@ var restaurantes = [
     new Restaurant(7, "Osteria Da Fortunata", "Pasta", "Roma", ["13:00", "15:30", "18:00"], "../img/pasta2.jpg", [7, 7, 7, 7, 3, 9])
 ]
 var lista = new Listado(restaurantes)
+var reserva1 = new Reserva (new Date(2018, 7, 27, 14, 100), 2, 150, "DES200")
 
 
 //------------------------------COMIENZO DEL TEST------------------------------//
@@ -130,9 +131,30 @@ describe('Buscar restaurante',function(){
 
 describe('Obtener listado de Restaurantes',function(){
     it('Se obtiene un array con los restaurantes que coinciden con los filtros indicados',function(){
-    
+        
         var filter = lista.obtenerRestaurantes("Hamburguesa", "Berlín", "11:30")
+     
+        
+        
         
         assert.typeOf(filter,'array','arreglo nuevo')
     }) 
+})
+
+
+
+
+describe('Devolver precio base reserva',function(){
+    it('Se calcula el precio base teniendo en cuenta la cantidad de personas',function(){
+        var precio = reserva1.getPrecioBase();
+        assert.equal(precio,300,'Precio total calculado correcto')
+    })
+    
+    it('Calculo precio Total incluyendo adicionales y descuentos indicados',function(){
+       
+        var total = reserva1.getPrecioReserva()
+        
+        assert.equal(total,100,'Precio total calculado correcto')
+    
+    })
 })
